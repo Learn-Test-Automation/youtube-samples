@@ -20,7 +20,7 @@ public class SwipePage {
             return !wait.until (visibilityOfElementLocated (locator))
                 .isDisplayed ();
         } catch (final TimeoutException e) {
-            return true;
+            return false;
         }
     }
 }

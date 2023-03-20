@@ -78,7 +78,7 @@ public class AndroidSwipeTest {
             .click ();
         final var maxSwipe = 5;
         var swipeCount = 0;
-        while (swipePage.isDisplayed (swipePage.getPlainLogo (), this.wait) && swipeCount++ < maxSwipe) {
+        while (!swipePage.isDisplayed (swipePage.getPlainLogo (), this.wait) && swipeCount++ < maxSwipe) {
             fingerGesture.swipeUp ();
         }
         final var logo = this.wait.until (visibilityOfElementLocated (swipePage.getPlainLogo ()));
