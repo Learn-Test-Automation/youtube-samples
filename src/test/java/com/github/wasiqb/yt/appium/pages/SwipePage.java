@@ -17,10 +17,10 @@ public class SwipePage {
 
     public boolean isDisplayed (final By locator, final WebDriverWait wait) {
         try {
-            return wait.until (visibilityOfElementLocated (locator))
+            return !wait.until (visibilityOfElementLocated (locator))
                 .isDisplayed ();
         } catch (final TimeoutException e) {
-            return false;
+            return true;
         }
     }
 }

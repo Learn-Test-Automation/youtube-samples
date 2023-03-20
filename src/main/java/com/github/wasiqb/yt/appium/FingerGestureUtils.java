@@ -8,27 +8,28 @@ import static org.openqa.selenium.interactions.PointerInput.Origin.viewport;
 
 import java.time.Duration;
 
-import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.AppiumDriver;
 import lombok.AllArgsConstructor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
 
 @AllArgsConstructor
-public class FingerGestureUtils {
-    private final AndroidDriver driver;
+public class FingerGestureUtils<D extends AppiumDriver> {
+    private final D driver;
 
     public void swipeUp () {
         final var start = getSwipeStartPosition ();
         final var end = getSwipeEndPosition ();
-        System.out.println ("Start: " + start);
-        System.out.println ("End: " + end);
+
         final var finger = new PointerInput (TOUCH, "Finger1");
         final var sequence = new Sequence (finger, 0);
+
         sequence.addAction (finger.createPointerMove (ZERO, viewport (), start.getX (), start.getY ()));
         sequence.addAction (finger.createPointerDown (LEFT.asArg ()));
         sequence.addAction (finger.createPointerMove (Duration.ofMillis (300), viewport (), end.getX (), end.getY ()));
         sequence.addAction (finger.createPointerUp (LEFT.asArg ()));
+
         this.driver.perform (singletonList (sequence));
     }
 

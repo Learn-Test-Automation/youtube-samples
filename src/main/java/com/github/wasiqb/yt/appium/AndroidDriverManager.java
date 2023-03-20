@@ -22,7 +22,7 @@ public class AndroidDriverManager {
 
     public AndroidDriverManager (final AppiumDriverLocalService service) {
         this.driver = new AndroidDriver (service.getUrl (), buildCapabilities ());
-        this.wait = new WebDriverWait (this.driver, Duration.ofSeconds (5));
+        this.wait = new WebDriverWait (this.driver, Duration.ofSeconds (2));
     }
 
     private Capabilities buildCapabilities () {
