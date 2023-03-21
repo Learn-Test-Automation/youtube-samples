@@ -10,17 +10,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 @Getter
 public class SwipePage {
+    public static boolean isNotDisplayed (final By locator, final WebDriverWait wait) {
+        try {
+            return !wait.until (visibilityOfElementLocated (locator))
+                .isDisplayed ();
+        } catch (final TimeoutException e) {
+            return true;
+        }
+    }
+
     private final By plainLogo    = AppiumBy.accessibilityId ("WebdriverIO logo");
     private final By scrollView   = AppiumBy.androidUIAutomator ("new UiSelector().description(\"Swipe-screen\")");
     private final By scrolledLogo = AppiumBy.androidUIAutomator (
         "new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().description(\"WebdriverIO logo\"))");
-
-    public boolean isDisplayed (final By locator, final WebDriverWait wait) {
-        try {
-            return wait.until (visibilityOfElementLocated (locator))
-                .isDisplayed ();
-        } catch (final TimeoutException e) {
-            return false;
-        }
-    }
 }

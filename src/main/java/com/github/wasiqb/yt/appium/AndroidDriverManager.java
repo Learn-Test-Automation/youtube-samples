@@ -37,7 +37,7 @@ public class AndroidDriverManager {
                 .toString ())
             .setAppWaitActivity ("com.wdiodemoapp.MainActivity")
             .setAutoGrantPermissions (true)
-            .setFullReset (true)
+            .setFullReset (false)
             .setIsHeadless (parseBoolean (getProperty ("headless", "false")))
             .setCapability ("appium:settings[ignoreUnimportantViews]", true);
         return options;

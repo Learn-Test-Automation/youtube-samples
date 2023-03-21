@@ -38,7 +38,7 @@ public class IOSDriverManager {
             .setApp (Path.of (USER_DIR, "src/test/resources/apps/wdio-demo.app.zip")
                 .toString ())
             .setAutoAcceptAlerts (true)
-            .setFullReset (true)
+            .setFullReset (false)
             .setIsHeadless (parseBoolean (getProperty ("headless", "false")));
         return options;
     }
