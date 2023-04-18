@@ -5,7 +5,6 @@ import static io.appium.java_client.service.local.flags.GeneralServerFlag.LOCAL_
 import static io.appium.java_client.service.local.flags.GeneralServerFlag.LOG_LEVEL;
 import static io.appium.java_client.service.local.flags.GeneralServerFlag.SESSION_OVERRIDE;
 import static io.appium.java_client.service.local.flags.GeneralServerFlag.USE_DRIVERS;
-import static java.lang.Integer.parseInt;
 import static java.lang.System.getProperty;
 import static java.text.MessageFormat.format;
 
@@ -30,8 +29,8 @@ public class AppiumServiceManager {
         final var logFile = Path.of (USER_DIR, "logs", format ("appium-{0}.log", this.driverName))
             .toFile ();
         final var builder = new AppiumServiceBuilder ();
-        return builder.withIPAddress (getProperty ("host", this.host))
-            .usingPort (parseInt (getProperty ("port", "" + this.port)))
+        return builder.withIPAddress (this.host)
+            .usingPort (this.port)
             .withLogFile (logFile)
             .withArgument (BASEPATH, "/wd/hub")
             .withArgument (LOG_LEVEL, "info")

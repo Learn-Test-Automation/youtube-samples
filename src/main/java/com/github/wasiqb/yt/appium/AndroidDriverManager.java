@@ -1,44 +1,46 @@
 package com.github.wasiqb.yt.appium;
 
-import static java.lang.Boolean.parseBoolean;
 import static java.lang.System.getProperty;
+import static java.text.MessageFormat.format;
 
 import java.nio.file.Path;
-import java.time.Duration;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
-import lombok.Getter;
+import lombok.Builder;
 import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-@Getter
-public class AndroidDriverManager {
+@Builder (builderMethodName = "createDriver", buildMethodName = "create")
+public class AndroidDriverManager implements IDriverManager<AndroidDriver> {
     private static final String USER_DIR = getProperty ("user.dir");
 
-    private final AndroidDriver driver;
-    private final WebDriverWait wait;
+    private String                   appName;
+    @Builder.Default
+    private String                   deviceName      = "Pixel_6_Pro";
+    private boolean                  isHeadless;
+    @Builder.Default
+    private String                   platformVersion = "11";
+    private AppiumDriverLocalService service;
+    private String                   waitActivity;
 
-    public AndroidDriverManager (final AppiumDriverLocalService service) {
-        this.driver = new AndroidDriver (service.getUrl (), buildCapabilities ());
-        this.wait = new WebDriverWait (this.driver, Duration.ofSeconds (2));
+    @Override
+    public AndroidDriver getDriver () {
+        return new AndroidDriver (this.service.getUrl (), buildCapabilities (this.appName));
     }
 
-    private Capabilities buildCapabilities () {
-        final var deviceName = getProperty ("deviceName", "Pixel_6_Pro");
-        final var deviceVersion = getProperty ("deviceVersion", "11");
+    private Capabilities buildCapabilities (final String appName) {
         final var options = new UiAutomator2Options ();
         options.setPlatformName ("Android")
-            .setPlatformVersion (deviceVersion)
-            .setDeviceName (deviceName)
-            .setAvd (deviceName)
-            .setApp (Path.of (USER_DIR, "src/test/resources/apps/wdio-demo.apk")
+            .setPlatformVersion (this.platformVersion)
+            .setDeviceName (this.deviceName)
+            .setAvd (this.deviceName)
+            .setApp (Path.of (USER_DIR, format ("src/test/resources/apps/{0}.apk", appName))
                 .toString ())
-            .setAppWaitActivity ("com.wdiodemoapp.MainActivity")
+            .setAppWaitActivity (this.waitActivity)
             .setAutoGrantPermissions (true)
             .setFullReset (false)
-            .setIsHeadless (parseBoolean (getProperty ("headless", "false")))
+            .setIsHeadless (this.isHeadless)
             .setCapability ("appium:settings[ignoreUnimportantViews]", true);
         return options;
     }
