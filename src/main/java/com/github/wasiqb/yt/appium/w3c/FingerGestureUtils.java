@@ -174,6 +174,7 @@ public class FingerGestureUtils<D extends AppiumDriver> {
     }
 
     private Point getSwipeEndPosition (final Direction direction, final WebElement element, final int distance) {
+        verifyDistance (distance);
         final var start = getSwipeStartPosition (element);
         final var x = start.getX () + ((start.getX () * direction.getX () * distance) / 100);
         final var y = start.getY () + ((start.getY () * direction.getY () * distance) / 100);
@@ -215,5 +216,11 @@ public class FingerGestureUtils<D extends AppiumDriver> {
         sequence.addAction (finger.createPointerUp (PointerInput.MouseButton.LEFT.asArg ()));
 
         return sequence;
+    }
+
+    private void verifyDistance (final int distance) {
+        if (distance <= 0 || distance >= 100) {
+            throw new IllegalArgumentException ("Distance should be between 0 and 100 exclusive...");
+        }
     }
 }
