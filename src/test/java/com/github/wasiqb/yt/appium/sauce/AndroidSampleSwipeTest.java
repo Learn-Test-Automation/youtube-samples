@@ -70,6 +70,7 @@ public class AndroidSampleSwipeTest {
     @Test (dependsOnMethods = "testProductDetailsPage")
     public void testCartDeleteOption () {
         this.fingerGesture.swipe (FingerGestureUtils.Direction.UP, 75);
+        this.fingerGesture.swipe (FingerGestureUtils.Direction.DOWN, 75);
         this.fingerGesture.tap (this.homePage.cart ());
 
         final var cartItem = this.cartPage.cartItem (0);
