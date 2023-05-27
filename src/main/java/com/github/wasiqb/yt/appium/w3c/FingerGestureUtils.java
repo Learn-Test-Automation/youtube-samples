@@ -100,7 +100,7 @@ public class FingerGestureUtils<D extends AppiumDriver> {
         printPoint ("End 2", end2);
 
         final var sequence1 = singleFingerSwipe (FINGER_1, 0, start1, end1);
-        final var sequence2 = singleFingerSwipe (FINGER_2, 1, start2, end2);
+        final var sequence2 = singleFingerSwipe (FINGER_2, 0, start2, end2);
 
         this.driver.perform (Arrays.asList (sequence1, sequence2));
     }
@@ -124,7 +124,7 @@ public class FingerGestureUtils<D extends AppiumDriver> {
         printPoint ("End 2", end2);
 
         final var sequence1 = singleFingerSwipe (FINGER_1, 0, end1, start1);
-        final var sequence2 = singleFingerSwipe (FINGER_2, 1, end2, start2);
+        final var sequence2 = singleFingerSwipe (FINGER_2, 0, end2, start2);
 
         this.driver.perform (Arrays.asList (sequence1, sequence2));
     }
