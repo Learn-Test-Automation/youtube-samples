@@ -72,7 +72,7 @@ public class IOSSampleSwipeTest {
         this.fingerGesture.tap (this.homePage.cart ());
 
         final var cartItem = this.cartPage.cartItem (0);
-        this.fingerGesture.swipe (FingerGestureUtils.Direction.LEFT, cartItem.description (), 50);
+        this.fingerGesture.swipe (FingerGestureUtils.Direction.LEFT, cartItem.description (), 75);
 
         this.fingerGesture.tap (this.cartPage.delete ());
         this.fingerGesture.tap (this.cartPage.continueShopping ());
