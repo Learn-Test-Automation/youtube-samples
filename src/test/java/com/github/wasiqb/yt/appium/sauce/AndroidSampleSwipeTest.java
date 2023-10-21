@@ -28,6 +28,7 @@ public class AndroidSampleSwipeTest {
     @BeforeClass
     public void setupClass () {
         this.service = AppiumServiceManager.composeService ()
+            .driverName ("uiautomator2")
             .composed ()
             .buildService ();
         this.service.start ();
